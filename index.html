@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>You Are Hacked Popup - Block Interaction</title>
+  <style>
+    /* Fullscreen overlay for popup */
+    #overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: radial-gradient(circle, #ff0000, #800000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: pulseBg 2s infinite alternate;
+    }
+
+    /* Animated text */
+    #popup-text {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 5rem;
+      color: white;
+      text-shadow:
+        0 0 10px #ff0000,
+        0 0 20px #ff0000,
+        0 0 30px #ff0000,
+        0 0 40px #ff0000,
+        0 0 50px #ff0000,
+        0 0 60px #ff0000;
+      animation: flicker 1.5s infinite;
+      user-select: none;
+    }
+
+    /* Background pulse animation */
+    @keyframes pulseBg {
+      0% {
+        background: radial-gradient(circle, #ff0000, #800000);
+      }
+      100% {
+        background: radial-gradient(circle, #ff4d4d, #b30000);
+      }
+    }
+
+    /* Flickering text animation */
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow:
+          0 0 10px #ff0000,
+          0 0 20px #ff0000,
+          0 0 30px #ff0000,
+          0 0 40px #ff0000,
+          0 0 50px #ff0000,
+          0 0 60px #ff0000;
+      }
+      20%, 22%, 24%, 55% {
+        opacity: 0.4;
+        text-shadow: none;
+      }
+    }
+
+    /* Overlay to block user interaction (transparent) */
+    #blocker {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: transparent;
+      z-index: 9998;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="overlay">
+    <div id="popup-text">YOU ARE HACKED</div>
+  </div>
+
+  <div id="blocker"></div> <!-- blocks interaction -->
+
+  <script>
+    // After 30 seconds, remove popup and unblock interaction
+    setTimeout(() => {
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('blocker').style.display = 'none';
+    }, 30000); // 30000 ms = 30 seconds
+  </script>
+
+</body>
+</html>
